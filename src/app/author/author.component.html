@@ -1,0 +1,68 @@
+<div class="jumbotron text-center">
+<div class="container">
+<button type="button" class="btn btn-success" (click)="openModal()">Add Book</button>
+</div>
+</div>
+
+<table class="table table-striped" style="margin: 25px;">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author </th>
+            <th>Publisher </th>
+            <th>Price</th>
+            <th>Publish Date</th>
+            <th>Category</th>
+            <th>Enable/Disable</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let book of searchResult">
+            <td>{{ book.bookName}}</td>
+            <td>{{ book.author}}</td>
+            <td>{{ book.publisher}}</td>
+            <td>{{ book.price}}</td>
+            <td>{{ book.publishedDate | date}}</td>
+            <td>{{ book.categoryName}}</td>
+            <!-- <td>
+                <button type="button" class="btn btn-info" 
+                data-bs-toggle="modal" data-bs-target="#purchaseModal"
+                (click)="EditClick(book)"
+                data-backdrop="static" data-keyboard="false">Edit</button>
+            </td> -->
+            <td>
+                <div *ngIf="book.active == true " >
+                <button type="button" class="btn btn-success" 
+                (click)="EnableClick(book)"
+                data-backdrop="static" data-keyboard="false">Disable</button>
+                </div>
+                <div *ngIf="book.active == false " >
+                    <button type="button" class="btn btn-info" 
+                    (click)="DisableClick(book)"
+                    data-backdrop="static" data-keyboard="false">Enable</button>
+                    </div>
+            </td>
+            
+        </tr>
+    </tbody>
+</table>
+
+<div>
+ <!-- Add Book Modal -->
+ <div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+    <div class="modal-dialog" role="document">
+          <div class="modal-content">
+                <div class="modal-header">
+                      <h4 class="modal-title">{{ModalTitle}}</h4>
+                      <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+                    </div>
+           <div class="modal-body">
+               <app-addbook [booksID]="bookID"></app-addbook>
+                    </div>
+                <div class="modal-footer">
+                      <button type="button" class="btn btn-default" (click)="onCloseHandled()" >Close</button>
+                    </div>
+       </div>
+        </div>
+</div>
+</div>

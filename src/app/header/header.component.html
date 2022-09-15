@@ -1,0 +1,62 @@
+<nav class="navbar navbar-dark bg-primary" style="background-color: #8f98d5 !important;">
+    <span class="navbar-brand mb-0 h1">Digital Books</span>
+
+    <div>
+    <form class="form-inline my-2 my-lg-0">
+        <!-- <button type="button" class="btn btn-secondary">Signin</button> -->
+
+        <!-- <button type="button" class="btn btn-primary float-right m-2" (click)="openSignInModal()">Signin</button>
+        <button type="button" class="btn btn-primary float-right m-2" (click)="openModal()">Signup</button> -->
+          
+         
+        <a class="btn btn-primary float-right m-2" *ngIf="showSignInSignUp"  routerLink="/searchbooks" >Home</a>
+        <a class="btn btn-primary float-right m-2" *ngIf="showSignInSignUp"  routerLink="/signin" >Sign In</a>
+        <a class="btn btn-primary float-right m-2" *ngIf="showSignInSignUp" routerLink="/signup" >Sign Up</a>
+        <div class="btn btn-primary float-right m-2" style="color: black;font-size: large; background-color: #8f98d5 !important;border: none !important;" *ngIf="!showSignInSignUp">{{userName}}</div>
+        <a class="btn btn-primary float-right m-2" *ngIf="!showSignInSignUp"  (click)="signOutClick()" >Sign Out</a>
+       
+      </form>
+    </div>
+    
+   
+    <div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':SignupModaldisplay}">
+         <div class="modal-dialog" role="document">
+               <div class="modal-content">
+                     <div class="modal-header">
+                           <h4 class="modal-title">{{ModalTitle}}</h4>
+                           <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+                         </div>
+                <div class="modal-body">
+                    <app-signup></app-signup>
+                         </div>
+                     <div class="modal-footer">
+                           <button type="button" class="btn btn-default" (click)="onCloseHandled()" >Close</button>
+                         </div>
+            </div>
+             </div>
+ </div>
+  
+
+  <!-- Sign In Modal -->
+  <div class="modal" tabindex="-2" role="dialog"  [ngStyle]="{'display':display}">
+    <div class="modal-dialog" role="document">
+          <div class="modal-content">
+                <div class="modal-header">
+                      <h4 class="modal-title">{{ModalTitle}}</h4>
+                      <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+                    </div>
+           <div class="modal-body">
+               <app-signin></app-signin>
+                    </div>
+                <div class="modal-footer">
+                      <button type="button" class="btn btn-default" (click)="onCloseHandled()" >Close</button>
+                    </div>
+       </div>
+        </div>
+</div>
+  
+
+  </nav>
+
+  <br/><br/>
+  <router-outlet></router-outlet>
