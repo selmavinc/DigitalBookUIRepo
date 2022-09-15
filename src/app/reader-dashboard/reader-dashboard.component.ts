@@ -43,7 +43,7 @@ export class ReaderDashboardComponent implements OnInit {
     onCloseHandled() {
         this.display = "none";
         this.readBookdisplay ="none";
-        // this.refreshComponent();
+        this.refreshComponent();
       }
 
       GetUserID(){
