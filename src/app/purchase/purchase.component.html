@@ -1,14 +1,43 @@
 <div class="cards-container">
     <div class="cards-form">
-      <form #form="ngForm" (ngSubmit)="onSubmit()">
+      <form #form="ngForm" [formGroup]="purchaseForm" (ngSubmit)="onSubmit()">
         <!-- <div class="form-group">
           <label for="">Book Name</label>
           <label [(ngModel)]="objpurchase.EmailId"></label>
         </div> -->
         <div class="form-group">
           <label for="">Email ID</label>
-          <input type="email" name="emailID" [(ngModel)]="objpurchase.EmailId" (focusout)="onFocusOutEvent($event)">
+          <br/>
+          <input type="email" class="form-control" name="emailID" formControlName="Email" [(ngModel)]="objpurchase.EmailId" (focusout)="onFocusOutEvent($event)">
+          </div>
+          <div *ngIf="purchaseForm.controls['Email'].invalid && !isValidFormSubmitted">
+            <div *ngIf="purchaseForm.controls['Email'].errors?.['required']" class="alert alert-danger">
+            Email is required
+          </div>
+          <div *ngIf="purchaseForm.controls['Email'].errors?.['pattern']" class="alert alert-danger">
+            Email ID should be proper format
+          </div>
         </div>
+        <!-- </div> -->
+        <div class="form-group">
+          <label for="inputCpuchasemode" class="col-form-label">Purchase Mode</label>
+          <!-- #category (change)="onSelected(category.value)" -->
+              <select class="form-control" formControlName="paymentMode" #paymentmode  (change)="onSelected(paymentmode.value)"> 
+                <option value="">--Select--</option>  
+                  <option value="Offline">                
+                    Offline  
+                  </option>
+                  <option  value="Online">                
+                    Online  
+                  </option>
+              </select>
+        
+      </div>
+      <div *ngIf="purchaseForm.controls['paymentMode'].invalid && !isValidFormSubmitted">
+        <div *ngIf="purchaseForm.controls['paymentMode'].errors?.['required']" class="alert alert-danger">
+        Select any one of the category
+      </div>
+    </div>
         <div class="form-group" style="margin: 17px;padding-left: 40px;">
           <button class="btn btn-success">Buy</button>
         </div>

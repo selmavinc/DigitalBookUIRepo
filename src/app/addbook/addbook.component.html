@@ -1,38 +1,131 @@
 
-
-     <div class="form-group">
+ <form [formGroup]="addbookForm" novalidate>
+  <div class="row">
+   
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
       <label for="bookName">Book Name</label>
-      <input type="text" class="form-control" id="bookName" aria-describedby="book name" [(ngModel)]="book.bookName" placeholder="Enter Book Name">
+      <input type="text" class="form-control" id="bookName" formControlName="BookName" aria-describedby="book name" [(ngModel)]="book.bookName" placeholder="Enter Book Name">
+      <br/>
+      <div *ngIf="addbookForm.controls['BookName'].invalid && !isValidFormSubmitted">
+        <div *ngIf="addbookForm.controls['BookName'].errors?.['required']" class="alert alert-danger">
+        Book Name is required
+      </div>
     </div>
-  <div class="form-group row">
+    </div>
+    <div class="col-md-1"></div>
+
+ 
+</div>
+  <div class="row">
+   
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
         <label for="inputCategory" class="col-sm-2 col-form-label">Category</label>
         <!-- #category (change)="onSelected(category.value)" -->
-            <select class="form-control" #category (change)="onSelected(category.value)"  > 
-              <option value="0">--Select--</option>  
+            <select class="form-control" #category (change)="onSelected(category.value)"  formControlName="categoryies"> 
+              <option value="">--Select--</option>  
                 <option *ngFor="let Categories of CategoryList" value={{Categories.categoryId}}>                
                   {{Categories.categoryName}}  
                 </option>
             </select>
-      
+      <br/>
+      <div *ngIf="addbookForm.controls['categoryies'].invalid && !isValidFormSubmitted">
+        <div *ngIf="addbookForm.controls['categoryies'].errors?.['required']" class="alert alert-danger">
+        Select any one of the category
+      </div>
     </div>
-  <div class="form-group row">
-            <label for="inputPrice" class="col-sm-2 col-form-label">Price</label>
-            
-              <input type="number" class="form-control" [(ngModel)]="book.price"   placeholder="Price">
-            
-    </div>
-       <div class="form-group">
-        <label for="publisher">Publisher</label>
-        <input type="text" class="form-control" id="publisher" [(ngModel)]="book.publisher"publisher  aria-describedby="publisher" placeholder="Enter Publisher">
       </div>
- <div class="form-group">
-        <label for="description">Book Content</label>
-        <input type="text" class="form-control" id="description" [(ngModel)]="book.description"  aria-describedby="book content" placeholder="Enter Book Content">
-      </div>
-        <div class="form-group">
-        <label for="publishedDate">Published Date</label>
-        <input type="datetime" class="form-control" id="publishedDate" [(ngModel)]="book.publishedDate"  aria-describedby="published date" placeholder="Enter Published Date">
-      </div>
+      <div class="col-md-1"></div>
+
    
-    <button type="submit" class="btn btn-primary" (click)="onSubmitClick()">Submit</button> 
+  </div>
+  <div class="row">
+   
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <label for="inputPrice" class="col-sm-2 col-form-label">Price</label>
+            
+      <input type="number" class="form-control" formControlName="price" [(ngModel)]="book.price"   placeholder="Price">
+      <br/>
+      <div *ngIf="addbookForm.controls['price'].invalid && addbookForm.controls['price'].touched && !isValidFormSubmitted">
+        <div *ngIf="addbookForm.controls['price'].errors?.['required']" class="alert alert-danger">
+        Price is required.
+      </div>
+    </div>
+    </div>
+    <div class="col-md-1"></div>
+
+ 
+</div>
+
+<div class="row">
+   
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+    <label for="publisher">Publisher</label>
+    <input type="text" class="form-control" id="publisher" formControlName="Publisher" [(ngModel)]="book.publisher"publisher  aria-describedby="publisher" placeholder="Enter Publisher">
+    <br/>
+    <div *ngIf="addbookForm.controls['Publisher'].invalid && !isValidFormSubmitted">
+      <div *ngIf="addbookForm.controls['Publisher'].errors?.['required']" class="alert alert-danger">
+        Publisher is required
+    </div>
   
+  </div>
+  </div>
+  <div class="col-md-1"></div>
+
+
+</div>
+<div class="row">
+   
+<div class="col-md-1"></div>
+<div class="col-md-10">
+  <label for="description">Book Content</label>
+        <input type="text" class="form-control" id="description" formControlName="Desc" [(ngModel)]="book.description"  aria-describedby="book content" placeholder="Enter Book Content">
+  <br/>
+  <div *ngIf="addbookForm.controls['Desc'].invalid && !isValidFormSubmitted">
+    <div *ngIf="addbookForm.controls['Desc'].errors?.['required']" class="alert alert-danger">
+    Content is required
+  </div>
+</div>
+</div>
+<div class="col-md-1"></div>
+
+
+</div>
+<div class="row">
+   
+<div class="col-md-1"></div>
+<div class="col-md-10">
+  <label for="publishedDate">Published Date</label>
+  <input type="date" class="form-control" id="publishedDate" formControlName="datepicker" [(ngModel)]="book.publishedDate"  aria-describedby="published date" placeholder="Enter Published Date">
+  <br/>
+  <div *ngIf="addbookForm.controls['datepicker'].invalid && !isValidFormSubmitted">
+    <div *ngIf="addbookForm.controls['datepicker'].errors?.['required']" class="alert alert-danger">
+    Date is required
+  </div>
+</div>
+</div>
+<div class="col-md-1"></div>
+
+
+</div>
+
+<div class="row">
+   
+<div class="col-md-1"></div>
+<div class="col-md-10">
+  <button type="submit" class="btn btn-primary" (click)="onSubmitClick()">Submit</button> 
+
+</div>
+<div class="col-md-1"></div>
+
+
+</div>
+
+
+
+ 
+</form>
+     

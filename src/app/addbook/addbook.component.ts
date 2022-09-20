@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Book } from '../Model/bookmodel';
 import { DigitalBooksService } from '../services/digitalbooks.service';
@@ -10,6 +11,8 @@ import { DigitalBooksService } from '../services/digitalbooks.service';
 })
 export class AddbookComponent implements OnInit {
   @Input() booksID:any;
+  addbookForm! : FormGroup;
+  isValidFormSubmitted = false;
 
   CategoryList:any[] =[];
   message:any;
@@ -37,12 +40,33 @@ export class AddbookComponent implements OnInit {
 		this.book.categoryId = Number.parseInt(value);
 	}
 
-  constructor(private service: DigitalBooksService,public router:Router) { }
+  constructor(private service: DigitalBooksService,public router:Router, private fb: FormBuilder) {
+    
+   }
+
+  myForm() {
+    debugger;
+    this.isValidFormSubmitted = false;
+     
+    const selectedDate = { date: { year: 2022, month: 9, day: 21 } };
+    this.addbookForm = this.fb.group({
+      BookName:['', Validators.required ],
+      categoryies:['', Validators.required ],
+      price: [0, Validators.required],
+      // price:[0, Validators.required ],
+      Publisher:['', Validators.required],
+      Desc:['', Validators.required],
+      datepicker: ['dd-mm-yyyy', [Validators.required]]
+    });
+    
+    
+ }
 
   ngOnInit(): void {
     
     this.GetUserID();
     this.loadCategoryList();
+    this.myForm();
     // console.log(history.state);
     // let values = JSON.parse(localStorage.getItem("emailID") || '');
     // if(values != null)
@@ -80,7 +104,16 @@ export class AddbookComponent implements OnInit {
    }
 
   onSubmitClick(){
-    
+    debugger;
+    if (this.addbookForm.invalid) {
+      this.isValidFormSubmitted = false;
+   }
+   else
+   {
+    this.isValidFormSubmitted = true;
+   }
+   if(this.isValidFormSubmitted)
+   {
     // this.book.bookId = this.booksID;
     console.log(this.booksID);
     console.log(this.book);
@@ -90,9 +123,11 @@ export class AddbookComponent implements OnInit {
       response => { 
         this.message=response;
          alert(this.message.message); 
-         this.clearControls();
-         this.GetUserID();
-         this.loadCategoryList();
+        //  this.clearControls();
+        //  this.GetUserID();
+        //  this.loadCategoryList();
+        window.location.reload();
+         this.router.navigate([`${'author'}`]);
         // this.router.navigate(['/author']);     
     }
     );
@@ -102,6 +137,7 @@ export class AddbookComponent implements OnInit {
       console.log("Edit");
       this.booksID=null;
     }
+  }
     
   }
 

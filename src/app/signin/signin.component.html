@@ -1,19 +1,126 @@
 
-    <!-- Email input -->
-    <div class="form-outline mb-4">
+    <!-- <div class="form-outline mb-4">
+    <h2 id="LoginHeading"> Login</h2>
+  </div> -->
+  <form [formGroup]="loginForm" novalidate>
+  <div class="row">
+    <div class="col-md-4">
+    
+    </div>
+    <div class="col-md-4">
+      <h2 id="LoginHeading" style="font-weight: bold;text-align: center;"> LOGIN</h2>
+    </div>
+    <div class="col-md-4">
+    
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+    
+    </div>
+    <div class="col-md-4">
+      <!-- <label class="form-label" for="userName">UserName</label> -->
+      <input type="text" id="userName" class="form-control" formControlName="UserName" [(ngModel)]="usernameC"  placeholder="UserName"  />
+      <div *ngIf="loginForm.controls['UserName'].invalid && !isValidFormSubmitted">
+        <div *ngIf="loginForm.controls['UserName'].errors?.['required']" class="alert alert-danger">
+        Username is required
+      </div>
+    
+    </div>
+    </div>
+    <div class="col-md-4">
+    
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col-md-4">
+    
+    </div>
+    <div class="col-md-4">
+      <!-- <label class="form-label" for="form2Example2">Password</label> -->
+        <input type="password" id="form2Example2" class="form-control" formControlName="PassWord" [(ngModel)]="passwordC"  placeholder="Password" />
+
+        <div *ngIf="loginForm.controls['PassWord'].invalid && !isValidFormSubmitted">
+          <div *ngIf="loginForm.controls['PassWord'].errors?.['required']" class="alert alert-danger">
+          Password is required
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+    
+    </div>
+  </div>
+  <div class="row"></div>
+  <div class="row">
+    <div class="col-md-4">
+    
+    </div>
+    <div class="col-md-4">
+      <button type="button" style="margin-top: 15px;" class="btn btn-primary btn-block mb-4" (click)="login()">Sign in</button>
+    </div>
+    <div class="col-md-4">
+    
+    </div>
+  </div>
+
+</form>
+
+    <!-- Email input
+    <div class="col-md-12">
+    <div class="col-md-12">
+      <div class="col-md-4"></div>
+        
+      <div class="col-md-4">
+        
+        <label class="form-label" for="userName">UserName</label>
+    
+      </div>
+      <div class="col-md-4"></div>
+      
+    </div>
+    <div class="col-md-12">
+      <div class="col-md-4"></div>
+        
+      <div class="col-md-4">
+        
       <input type="text" id="userName" class="form-control" [(ngModel)]="usernameC"  placeholder="UserName"  />
-      <label class="form-label" for="userName">UserName</label>
+    
+      </div>
+      <div class="col-md-4"></div>
+      
+    </div>
+
+    <div class="col-md-12">
+      <div class="col-md-4"></div>
+        
+      <div class="col-md-4">
+        <label class="form-label" for="form2Example2">Password</label>
+        <input type="password" id="form2Example2" class="form-control" [(ngModel)]="passwordC"  placeholder="Password" />
+    
+      </div>
+      <div class="col-md-4"></div>
+      
     </div>
   
-    <!-- Password input -->
-    <div class="form-outline mb-4">
-      <input type="password" id="form2Example2" class="form-control" [(ngModel)]="passwordC"  placeholder="Password" />
-      <label class="form-label" for="form2Example2">Password</label>
-    </div>
+
   
  
   
-    <!-- Submit button -->
-    <button type="button" class="btn btn-primary btn-block mb-4" (click)="login()">Sign in</button>
+     Submit button
+    <div class="col-md-12">
+      <div class="col-md-4"></div>
+        
+      <div class="col-md-4">
+        
+        <button type="button" class="btn btn-primary btn-block mb-4" (click)="login()">Sign in</button>
+    
+      </div>
+      <div class="col-md-4"></div>
+      
+    </div>
+    </div> -->
+    
+    
   
   

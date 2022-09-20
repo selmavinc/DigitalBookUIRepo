@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DigitalBooksService } from '../services/digitalbooks.service';
+import { Router,ActivatedRoute } from '@angular/router';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -7,6 +9,9 @@ import { DigitalBooksService } from '../services/digitalbooks.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+
+  requiredForm! : FormGroup;
+  isValidFormSubmitted = false;
 
   RoleList : any[] =[];
   message : any;
@@ -19,12 +24,35 @@ export class SignupComponent implements OnInit {
   emailID : string = "";
   password : string = "";
   roleId : number =0;
+  
 
 
-  constructor(private service: DigitalBooksService) { }
+  constructor(private service: DigitalBooksService, public router:Router, private fb: FormBuilder) {
+    this.myForm();
+   }
+
+  myForm() {
+    debugger;
+    this.isValidFormSubmitted = false;
+     
+     
+    this.requiredForm = this.fb.group({
+      firstname: ['', Validators.required ],
+      lastname:['', Validators.required],
+      UserName:['', [Validators.required, Validators.minLength(4)]],
+      Email: ['', [Validators.required, 
+        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$")] ],
+      PassWord:['', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]],
+      gender:['', Validators.required]
+      // UserName: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+    });
+    
+    
+ }
 
   ngOnInit(): void {
     this.getRoleList();
+    
   }
 
 
@@ -39,6 +67,16 @@ export class SignupComponent implements OnInit {
   }
 
   AddUser(){
+    debugger;
+    if (this.requiredForm.invalid) {
+      this.isValidFormSubmitted = false;
+   }
+   else
+   {
+    this.isValidFormSubmitted = true;
+   }
+    if(this.isValidFormSubmitted)
+    {
     var val ={
       userName : this.userName,
       emailId: this.emailID,
@@ -55,6 +93,9 @@ export class SignupComponent implements OnInit {
         
         this.message=response;
          alert(this.message.message); 
+         this.router.navigate([`${'signin'}`]);
+
+
          if(this.message.message != 'Already Registered')
          {
           this.clearControls();
@@ -62,6 +103,7 @@ export class SignupComponent implements OnInit {
          }
       
     )
+        }
   }
 
   clearControls(){

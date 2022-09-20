@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { purchase } from '../Model/purchasemodel';
 import { DigitalBooksService } from '../services/digitalbooks.service';
+import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-purchase',
@@ -14,6 +16,8 @@ export class PurchaseComponent implements OnInit {
   display = "none";
   bookName:any;
   message:any;
+  purchaseForm! : FormGroup;
+  isValidFormSubmitted = false;
 
   objpurchase : purchase={
     PurchaseId: 0,
@@ -22,7 +26,9 @@ export class PurchaseComponent implements OnInit {
     PaymentMode : '',
     IsRefunded : 'Y'
   }
-  constructor(private services: DigitalBooksService) { }
+  constructor(private services: DigitalBooksService ,public router:Router, private fb: FormBuilder) { 
+    this.myForm();
+  }
 
   ngOnInit(): void {
     
@@ -35,6 +41,23 @@ export class PurchaseComponent implements OnInit {
     
   }
 
+  myForm() {
+    debugger;
+    this.isValidFormSubmitted = false;
+     
+     
+    this.purchaseForm = this.fb.group({
+      Email: ['', [Validators.required, 
+        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$")] ],
+        paymentMode:['', Validators.required ]
+    });
+    
+    
+ }
+
+  onSelected(value:string): void {
+		this.objpurchase.PaymentMode = value;
+	}
   //  getBookName(){
   //    
   //    console.log(this.bookID);
@@ -62,7 +85,15 @@ export class PurchaseComponent implements OnInit {
 
 
   onSubmit(){
-    
+    if (this.purchaseForm.invalid) {
+      this.isValidFormSubmitted = false;
+   }
+   else
+   {
+    this.isValidFormSubmitted = true;
+   }
+   if(this.isValidFormSubmitted)
+    {
     this.objpurchase.BookId = this.bookID;
     this.services.PurchaseBook(this.objpurchase).subscribe(
       response => {
@@ -73,8 +104,12 @@ export class PurchaseComponent implements OnInit {
         //  {
           
         //  }
-      this.loadBookHistory(); }
+      this.loadBookHistory();
+      window.location.reload();
+      this.router.navigate([`${'reader-dashboard'}`]);
+     }
     )
+      }
   }
   onFocusOutEvent(event: any){
     this.loadBookHistory();

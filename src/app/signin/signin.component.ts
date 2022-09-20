@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HeaderComponent } from '../header/header.component';
 import { ShowBooksComponent } from '../searchbooks/show-books/show-books.component';
 import { DigitalBooksService } from '../services/digitalbooks.service';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-signin',
@@ -15,12 +16,42 @@ export class SigninComponent implements OnInit {
   token : string="";
   usernameC:any;
   passwordC:any;
-  constructor(private service: DigitalBooksService,public router:Router) { }
+  loginForm! : FormGroup;
+  isValidFormSubmitted = false;
+  constructor(private service: DigitalBooksService,public router:Router, private fb: FormBuilder) { 
+    
+  }
+
+  myForm() {
+    debugger;
+    this.isValidFormSubmitted = false;
+     
+     
+    this.loginForm = this.fb.group({
+      UserName:['', Validators.required ],
+      PassWord:['', Validators.required]
+    });
+    
+    
+ }
 
   ngOnInit(): void {
+    this.myForm();
   }
 
   login(){
+    debugger;
+    
+
+    if (this.loginForm.invalid) {
+      this.isValidFormSubmitted = false;
+   }
+   else
+   {
+    this.isValidFormSubmitted = true;
+   }
+   if(this.isValidFormSubmitted)
+    {
     var val = {
       userName : this.usernameC,
       password : this.passwordC
@@ -43,11 +74,17 @@ export class SigninComponent implements OnInit {
           // this.nameEmitter.emit(true);  
           if(this.response.role == "Author") //This is Author
           {
-          this.router.navigate(['/author']);  
+          // this.router.navigate(['/author']);  
+          
+          this.router.navigate([`${'author'}`]);
+          
           }
           else{ 
             // This is Reader
-            this.router.navigate(['/reader']);  
+            // this.router.navigate(['/reader']);  
+            
+            this.router.navigate([`${'reader'}`]);
+            
           }
           
 
@@ -57,6 +94,9 @@ export class SigninComponent implements OnInit {
            alert("Incorrect Username and Pasword");
         }
       }
-    )    
+    )   
+    
+    }
+
   }
 }
