@@ -41,12 +41,12 @@ export class AddbookComponent implements OnInit {
 	}
 
   constructor(private service: DigitalBooksService,public router:Router, private fb: FormBuilder) {
-    
+    this.myForm();
    }
 
   myForm() {
     debugger;
-    this.isValidFormSubmitted = false;
+    this.isValidFormSubmitted = true;
      
     const selectedDate = { date: { year: 2022, month: 9, day: 21 } };
     this.addbookForm = this.fb.group({
@@ -66,7 +66,7 @@ export class AddbookComponent implements OnInit {
     
     this.GetUserID();
     this.loadCategoryList();
-    this.myForm();
+    
     // console.log(history.state);
     // let values = JSON.parse(localStorage.getItem("emailID") || '');
     // if(values != null)

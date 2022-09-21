@@ -43,7 +43,7 @@ export class PurchaseComponent implements OnInit {
 
   myForm() {
     debugger;
-    this.isValidFormSubmitted = false;
+    this.isValidFormSubmitted = true;
      
      
     this.purchaseForm = this.fb.group({

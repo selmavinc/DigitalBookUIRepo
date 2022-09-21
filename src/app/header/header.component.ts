@@ -41,9 +41,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.userLoggedIn = this.service.CheckUserLoggedInOrNot();
     let values = JSON.parse(localStorage.getItem("UserName") || '');
+    let values1 = JSON.parse(localStorage.getItem("Role") || '');
     if(values != null)
     {
-      this.userName=values.substr(0,1).toUpperCase() + values.substr(1);
+      this.userName=values.substr(0,1).toUpperCase() + values.substr(1) + ' (' + values1+ ')';
     }
     this.isUserLoggedIn(this.userLoggedIn);
      console.log("in ngonInit =" + this.userLoggedIn);
@@ -55,6 +56,7 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('user');
     localStorage.removeItem('emailID');
     localStorage.removeItem('UserName');
+    localStorage.removeItem('Role');
     this.isUserLoggedIn(false);
     this.router.navigate(['/signin']);        
   } 

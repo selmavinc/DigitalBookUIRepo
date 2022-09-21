@@ -19,12 +19,12 @@ export class SigninComponent implements OnInit {
   loginForm! : FormGroup;
   isValidFormSubmitted = false;
   constructor(private service: DigitalBooksService,public router:Router, private fb: FormBuilder) { 
-    
+    this.myForm();
   }
 
   myForm() {
     debugger;
-    this.isValidFormSubmitted = false;
+    this.isValidFormSubmitted = true;
      
      
     this.loginForm = this.fb.group({
@@ -36,7 +36,7 @@ export class SigninComponent implements OnInit {
  }
 
   ngOnInit(): void {
-    this.myForm();
+    
   }
 
   login(){
@@ -67,6 +67,7 @@ export class SigninComponent implements OnInit {
            localStorage.setItem('user', JSON.stringify(this.response.user));
            localStorage.setItem('emailID', JSON.stringify(this.response.emailID));
            localStorage.setItem('UserName', JSON.stringify(this.response.username));
+           localStorage.setItem('Role', JSON.stringify(this.response.role));
            let headerComponentObj = new HeaderComponent(this.service,this.router);
            headerComponentObj.ngOnInit();
           

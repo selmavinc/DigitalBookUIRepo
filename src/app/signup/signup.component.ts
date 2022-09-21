@@ -33,7 +33,7 @@ export class SignupComponent implements OnInit {
 
   myForm() {
     debugger;
-    this.isValidFormSubmitted = false;
+    this.isValidFormSubmitted = true;
      
      
     this.requiredForm = this.fb.group({
