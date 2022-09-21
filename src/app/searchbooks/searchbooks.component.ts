@@ -35,6 +35,7 @@ export class SearchbooksComponent implements OnInit {
   ngOnInit(): void {
     this.loadCategoryList();    
     this.loadAuthorList();
+    this.loadAllBooks();
   }
 
   loadCategoryList() {
@@ -48,6 +49,13 @@ export class SearchbooksComponent implements OnInit {
     this.service.GetAllAuthors()
     .subscribe(
       response => {this.AuthorList =response}
+    );
+  }
+
+  loadAllBooks() {
+    this.service.GetAllBooks()
+    .subscribe(
+      response => { this.searchResult = response}
     );
   }
 

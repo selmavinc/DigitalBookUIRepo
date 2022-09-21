@@ -24,6 +24,11 @@ export class DigitalBooksService {
         return this.https.get<any>(this.baseUrl+"Purchases/GetBook/" + id);
     }
 
+    //Get All books
+    GetAllBooks():Observable<any[]>{
+        return this.https.get<any>(this.baseUrl+"Reader/ViewBooks");
+    }
+
     //Get All Author List
     GetAllAuthors():Observable<any[]>{
         return this.https.get<any>(this.baseUrl + "Users/GetUsers");
