@@ -106,7 +106,12 @@ export class PurchaseComponent implements OnInit {
         //  }
       this.loadBookHistory();
       window.location.reload();
-      this.router.navigate([`${'reader-dashboard'}`]);
+      if(this.objpurchase.EmailId !=null)
+      {
+        this.router.navigate([`${'reader-dashboard'}`]);
+
+      }
+      
      }
     )
       }

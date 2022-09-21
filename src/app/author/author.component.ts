@@ -91,7 +91,7 @@ DisableClick(item:Book){
 }
 
     openModal() {
-      this.ModalTitle ="Add Book";
+      this.ModalTitle ="ADD BOOK";
       this.display = "block";
     }
   
